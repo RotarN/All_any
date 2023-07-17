@@ -1,0 +1,26 @@
+From Python Cookbook (David Beazley):
+
+Finding the Largest or Smallest N Items with heapq
+The nlargest() and nsmallest() functions are most appropriate if you are
+trying to find a relatively small number of items.
+If you are simply trying to find the single smallest or largest item (N=1),
+it is faster to use min() and max(). Similarly, if N is about the same size as the
+collection itself, it is usually faster to sort it first and take a slice
+(i.e., use sorted(items)[:N] or sorted(items)[-N:]).
+
+It should be noted that the actual implementation of nlargest() and nsmallest()
+is adaptive in how it operates and will carry out some of these optimizations
+on your behalf (e.g., using sorting if N is close to the same size as the input).
+
+>>>import heapq
+>>>nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
+>>>print(heapq.nlargest(3, nums))  # Prints [42, 37, 23]
+>>>print(heapq.nsmallest(3, nums)) # Prints [-4, 1, 2]
+>>> nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
+>>> import heapq
+>>> heap = list(nums)
+>>> heapq.heapify(heap)
+>>> heap
+[-4, 2, 1, 23, 7, 2, 18, 23, 42, 37, 8]
+>>> heapq.heappop(heap)
+-4
